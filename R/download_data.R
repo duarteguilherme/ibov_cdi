@@ -74,6 +74,7 @@ cdi <- cdi %>%
   select(data, cdi_valor) 
 
 
+
 # Plotting ibov data
 ggplot(cdi, aes(x = data, y = cdi_valor)) +
   geom_line()
@@ -104,12 +105,14 @@ dados <- dados %>%
 dados <- dados %>%
   mutate(cdi_index = (1 + cdi_valor) %>%
            accumulate(`*`)) %>%
+  mutate(first_ibov = first(ibov_valor)) %>%
   mutate(cdi_index = cdi_index * first(ibov_valor))
   
 
-# Plotting cdi index
-ggplot(dados, aes(x = data, y = cdi_index)) +
-  geom_line()
+# Plotting cdi index x ibov index
+ggplot(dados) +
+  geom_line(aes(x = data, y = cdi_index)) + 
+  geom_line(aes(x = data, y = ibov_valor))
 
 
 saveRDS(object = dados, file = "data/dados.rds")
