@@ -11,22 +11,6 @@ library(readxl)
 library(xml2)
 library(ggplot2)
 
-download_year_ibovespa_net <- function(year) {
-  #' Download data from Ibovespa
-  #' Only data between 1986 and 2019
-  print(glue::glue("Baixando ano {year}"))
-  url <- glue::glue("http://bvmf.bmfbovespa.com.br/InstDados/SerHist/COTAHIST_A{year}.zip")
-  download.file(url = url, destfile = glue::glue("data/COTAHIST_A{year}.zip"))
-  unzip(glue::glue("data/COTAHIST_A{year}.zip"), exdir = "data/")
-}
-
-read_ibovespa_year_net <- function(year) {
-  #' Download data from Ibovespa
-  #' Only data between 1986 and 2019
-  df <- rbmfbovespa::read_marketdata(glue::glue('data/COTAHIST.A{year}'), template = "BDIN")
-  head(df)
-  
-}
 
 download_data_ibovespa_file <- function() {
   #' Download data from Ibovespa
