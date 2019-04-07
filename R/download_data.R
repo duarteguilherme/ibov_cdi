@@ -10,7 +10,7 @@ library(glue)
 library(readxl)
 library(xml2)
 library(ggplot2)
-
+library(tidyr)
 
 download_data_ibovespa_file <- function() {
   #' Download data from Ibovespa
