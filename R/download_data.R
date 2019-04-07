@@ -17,7 +17,7 @@ download_data_ibovespa_file <- function() {
   #' Only data between 1968 and 1997
   download.file('http://bvmf.bmfbovespa.com.br/indices/download/IBOVDIA.zip',
                 destfile = "data/IBOVDIA.zip")
-  unzip("data/IBOVDIA.zip",exdir = "data/")
+  unzip("data/IBOVDIA.zip",exdir = "data")
 }
 
 read_ibovespa_year_file <- function(year) {
@@ -83,6 +83,7 @@ ggplot(cdi, aes(x = data, y = cdi_valor)) +
 
 dados <- inner_join(ibov, cdi)
 
+
 #' Cleaning NA data
 #' 1) We wipe rows with cdi_valor
 #' or ibov_valor equal to NA
@@ -93,7 +94,7 @@ dados <- inner_join(ibov, cdi)
 #' but ibov_valor is not, we assign 0
 #' to cdi_valor
 dados <- dados %>%
-  filter(lubridate::year(data) >= 1986) %>%
+  filter(lubridate::year(data) >= 2003) %>%
   # 1)
   filter(!is.na(cdi_valor) | !is.na(ibov_valor)) %>%
   arrange(data) %>%

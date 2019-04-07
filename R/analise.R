@@ -11,6 +11,7 @@ retorna_resultado <- function(dados, janela) {
   #' Funcao recebe uma janela em dias uteis,
   #' e retorna a porcentagem de vezes em que CDI venceu IBOV
   dados %>%
+    filter(lubridate::year(data) >= 2003) %>%
     mutate(cdi_diferenca = lead(cdi_index, janela)/cdi_index - 1,
            ibov_diferenca = lead(ibov_valor, janela)/ibov_valor - 1) %>%
     mutate(resultado = cdi_diferenca > ibov_diferenca) %>%
